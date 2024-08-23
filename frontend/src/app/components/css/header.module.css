@@ -19,8 +19,8 @@
 }
 
 .container-md {
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 .link {
@@ -41,7 +41,7 @@
 }
 
 .nav-link {
-  font-size: 0.875rem;
+  font-size: large;
   font-weight: 500;
   text-decoration: none;
   color: var(--primary);
@@ -53,6 +53,6 @@
 
 .brand {
   font-weight: bold;
-  font-size: x-large;
+  font-size: xx-large;
   color: var(--primary);
 }
