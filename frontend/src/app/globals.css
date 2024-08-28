@@ -1,5 +1,32 @@
 :root {
-  --background: #222f3e;
+  /* large text */
+  --text-large-font-size: 18px;
+  --text-large-line-height: 26px;
+  --text-large-font-weight: 400;
+  --text-large-bold-font-size: 18px;
+  --text-large-bold-line-height: 26px;
+  --text-large-bold-font-weight: 700;
+  /* medium text */
+  --text-medium-font-size: 16px;
+  --text-medium-line-height: 22px;
+  --text-medium-font-weight: 400;
+  --text-medium-bold-font-size: 16px;
+  --text-medium-bold-line-height: 22px;
+  --text-medium-bold-font-weight: 700;
+  /* small text */
+  --text-small-font-size: 14px;
+  --text-small-line-height: 20px;
+  --text-small-font-weight: 400;
+  --text-small-bold-font-size: 14px;
+  --text-small-bold-line-height: 20px;
+  --text-small-bold-font-weight: 700;
+  /* xsmall text */
+  --text-xsmall-font-size: 12px;
+  --text-xsmall-line-height: 16px;
+  --text-xsmall-font-weight: 400;
+}
+:root {
+  --background: #0e1116;
   --foreground: #c8d6e5;
   --primary: #feca57;
   --primary-foreground: #222f3e;
@@ -10,9 +37,11 @@
   --accent-foreground: hsl(60, 0%, 100%);
   --destructive: #ee5253;
   --destructive-foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 5%, 25%);
-  --muted-foreground: hsl(60, 5%, 85%);
   --radius: 0.5rem;
+
+  --default-text: #f1f3f9;
+  --default-color: rgba(205,213,229,.071);
+  --disabled-text: rgba(205, 213, 229, 0.749);
 }
 
 * {

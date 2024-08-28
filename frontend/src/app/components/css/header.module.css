@@ -41,18 +41,35 @@
 }
 
 .nav-link {
-  font-size: large;
+  font-size: var(--text-medium-font-size);
   font-weight: 500;
   text-decoration: none;
-  color: var(--primary);
+  color: var(--disabled-text);
 }
 
-.nav-link:hover {
-  text-decoration: underline;
+.nav-link-active {
+  color: var(--default-text);
+  font-weight: var(--text-medium-bold-font-weight);
+  font-size: var(--text-medium-bold-font-size);
+  line-height: var(--text-medium-bold-line-height);
 }
 
 .brand {
   font-weight: bold;
   font-size: xx-large;
   color: var(--primary);
+}
+
+.button {
+  border-radius: 1000px;
+  background-color: var(--default-color);
+  color: var(--default-text);
+  padding: 0.5rem 1.5rem;
+  font-size: var(--text-medium-font-size);
+  border-color: var(--default-color);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgba(205, 213, 229, 0.171);
 }
