@@ -16,6 +16,8 @@ const Header = () => {
   const isActive = (path: string) => {
     return currentPath === path;
   };
+
+  
   return (
     <header className={styles.header}>
       <div className={`${styles.container} ${styles["container-md"]}`}>

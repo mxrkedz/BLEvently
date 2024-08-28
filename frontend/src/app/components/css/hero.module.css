@@ -34,6 +34,7 @@
 .heading {
   font-size: 2.25rem;
   font-weight: 600;
+  color: var(--primary);
   margin-bottom: 24px;
 }
 
@@ -45,7 +46,7 @@
 
 .paragraph {
   font-size: 1rem;
-  color: var(--primary);
+  color: var(--default-text);
   margin-bottom: 24px;
 }
 
@@ -54,4 +55,19 @@
     margin: 1.5rem 0;
     font-size: 1.125rem;
   }
+}
+
+.button {
+  border-radius: 0.3rem;
+  background-color: var(--default-color);
+  color: var(--default-text);
+  padding: 0.5rem 1.5rem;
+  border-color: white;
+  cursor: pointer;
+  font-size: var(--text-medium-bold-font-size);
+  line-height: var(--text-medium-bold-line-height);
+}
+
+.button:hover {
+  background-color: rgba(205, 213, 229, 0.171);
 }
