@@ -1,0 +1,50 @@
+.section {
+  width: 100%;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.section2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2rem;
+  margin: 0 auto;
+  background-color: var(--primary);
+}
+
+.span {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  color: #6366f1;
+  font-weight: 500;
+}
+
+.heading {
+  font-size: 2.25rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--primary-foreground);
+  margin: 0;
+}
+
+.paragraph {
+  font-size: 1.125rem;
+  color: var(--primary-foreground);
+  text-align: center;
+}
+
+.eventcards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 3rem;
+  justify-items: center;
+  align-items: center;
+}

@@ -3,7 +3,7 @@
   --foreground: #c8d6e5;
   --primary: #feca57;
   --primary-foreground: #222f3e;
-  --secondary: #5f27cd;
+  --secondary: #ac82ff;
   --secondary-foreground: #c8d6e5;
   --success: #1dd1a1;
   --accent: #54a0ff;
@@ -16,7 +16,7 @@
 }
 
 * {
-  border-color: var(--border);
+  border-color: inherit;
   border-width: 1px;
   /* border-style: solid; */
 }
