@@ -1,6 +1,7 @@
 import { asyncError } from "../middlewares/error.js";
 import { User } from "../models/user.js";
 import ErrorHandler from "../utils/error.js";
+import { sendToken } from "../utils/features.js";
 
 export const register = asyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -14,6 +15,8 @@ export const register = asyncError(async (req, res, next) => {
     email,
     password,
   });
+
+  sendToken(user, res, `Registered successfully`, 201);
 });
 
 export const login = asyncError(async (req, res, next) => {
@@ -35,10 +38,5 @@ export const login = asyncError(async (req, res, next) => {
 
   const token = user.generateToken();
 
-  res.status(200).json({
-    success: true,
-    message: `Welcome Back, ${user.name}!`,
-    token,
-  });
-  next(new Error());
+  sendToken(user, res, `Welcome back, ${user.name}`, 200);
 });
