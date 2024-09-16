@@ -8,7 +8,7 @@ const Hero = () => {
     <section className={styles.section}>
       <div>
         <h3 className={styles.heading}>
-          Bring
+          Build
           <br />
           Legendary
           <br />

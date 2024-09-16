@@ -17,7 +17,6 @@ const Header = () => {
     return currentPath === path;
   };
 
-  
   return (
     <header className={styles.header}>
       <div className={`${styles.container} ${styles["container-md"]}`}>
