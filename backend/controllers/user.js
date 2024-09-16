@@ -33,9 +33,12 @@ export const login = asyncError(async (req, res, next) => {
     return next(new Error("Incorrect Email or Password", 400));
   }
 
+  const token = user.generateToken();
+
   res.status(200).json({
     success: true,
     message: `Welcome Back, ${user.name}!`,
+    token,
   });
   next(new Error());
 });
