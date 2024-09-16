@@ -14,6 +14,28 @@ export const register = asyncError(async (req, res, next) => {
     email,
     password,
   });
+});
 
-  res.send("Registered successfully");
+export const login = asyncError(async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Incorrect Email or Password" });
+  }
+
+  const isMatched = await user.comparePassword(password);
+
+  if (!isMatched) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid Credentials" });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: `Welcome Back, ${user.name}!`,
+  });
 });
