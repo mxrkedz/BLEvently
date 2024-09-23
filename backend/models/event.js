@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const eventSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -36,19 +36,18 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-//   images: [
-//     {
-//       public_id: {
-//         type: String,
-//         required: true,
-//       },
-//       url: {
-//         type: String,
-//         required: true,
-//       },
-//     },
-//   ],
-
+  images: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
-module.exports = mongoose.model("Event", eventSchema);
+export const Event = mongoose.model("Event", schema);

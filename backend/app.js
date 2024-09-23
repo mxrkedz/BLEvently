@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 import user from "./routes/user.js";
+import event from "./routes/event.js";
 app.use("/api/v1/user", user);
+app.use("/api/v1/event", event);
 
 app.use(errorMiddleware);
