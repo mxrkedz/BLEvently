@@ -1,7 +1,12 @@
 import { asyncError } from "../middlewares/error.js";
 import { User } from "../models/user.js";
 import ErrorHandler from "../utils/error.js";
-import { sendToken, cookieOptions, getDataUri } from "../utils/features.js";
+import {
+  sendToken,
+  cookieOptions,
+  getDataUri,
+  sendEmail,
+} from "../utils/features.js";
 import cloudinary from "cloudinary";
 
 export const register = asyncError(async (req, res, next) => {
@@ -137,5 +142,64 @@ export const updateAvatar = asyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Avatar Updated Succesfully",
+  });
+});
+
+export const forgetPassword = asyncError(async (req, res, next) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) return next(new ErrorHandler("Incorrect Email", 404));
+  //max,min 2000,10000
+  const randomNumber = Math.random() * (999999 - 100000) + 100000;
+  const otp = Math.floor(randomNumber);
+  const otp_expire = 15 * 60 * 1000;
+
+  user.otp = otp;
+  user.otp_expire = new Date(Date.now() + otp_expire);
+  await user.save();
+
+  const message = `Your OTP for Resetting Password is ${otp}.\n Please ignore if you haven't requested this.`;
+  try {
+    await sendEmail("OTP For Resetting Password", user.email, message);
+  } catch (error) {
+    user.otp = null;
+    user.otp_expire = null;
+    await user.save();
+    return next(error);
+  }
+  //sendEmail()
+
+  res.status(200).json({
+    success: true,
+    message: `Email sent to ${user.email}`,
+  });
+});
+
+export const resetPassword = asyncError(async (req, res, next) => {
+  const { otp, password } = req.body;
+
+  const user = await User.findOne({
+    otp,
+    otp_expire: {
+      $gt: Date.now(),
+    },
+  });
+
+  if (!user)
+    return next(new ErrorHandler("Incorret OTP or has been expired", 400));
+
+  if (!password)
+    return next(new ErrorHandler("Please Enter New Password", 400));
+
+  user.password = password;
+  user.otp = undefined;
+  user.otp_expire = undefined;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Password Change Successfully, You can login now",
   });
 });
