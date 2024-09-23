@@ -44,3 +44,14 @@ export const createEvent = asyncError(async (req, res, next) => {
     message: "Event Created Succesfully",
   });
 });
+
+export const getAllEvents = asyncError(async (req, res, next) => {
+  const { keyword, category } = req.query;
+
+  const events = await Event.find({});
+
+  res.status(200).json({
+    success: true,
+    events,
+  });
+});
