@@ -62,3 +62,44 @@ export const logout = asyncError(async (req, res, next) => {
       message: "Logout Successfully",
     });
 });
+
+export const updateProfile = asyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  const { name, email } = req.body;
+
+  if (name) user.name = name;
+  if (email) user.email = email;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user,
+    message: "Profile Update Succesfully",
+  });
+});
+
+export const changePassword = asyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id).select("+password");
+
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword)
+    return next(
+      new ErrorHandler("Please Enter The Old Password & New Password", 400)
+    );
+
+  const isMatched = await user.comparePassword(oldPassword);
+
+  if (!isMatched) return next(new ErrorHandler("Incorrect Old Password", 400));
+
+  user.password = newPassword;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    user,
+    message: "Password Changed Successfully",
+  });
+});
