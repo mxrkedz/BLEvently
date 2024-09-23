@@ -55,3 +55,14 @@ export const getAllEvents = asyncError(async (req, res, next) => {
     events,
   });
 });
+
+export const getEventDetails = asyncError(async (req, res, next) => {
+    const event = await Event.findById(req.params.id).populate("category");
+  
+    if (!event) return next(new ErrorHandler("Event not found", 404));
+  
+    res.status(200).json({
+      success: true,
+      event,
+    });
+  });
