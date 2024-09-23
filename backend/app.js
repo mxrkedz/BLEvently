@@ -10,7 +10,7 @@ config({
 export const app = express();
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 import user from "./routes/user.js";
 app.use("/api/v1/user", user);
