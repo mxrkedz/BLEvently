@@ -5,17 +5,20 @@ import {
   createEvent,
   getAllEvents,
   getEventDetails,
-  updateEvent,deleteEvent,
+  updateEvent,
+  deleteEvent,
+  getMyEvents,
 } from "../controllers/event.js";
 const router = express.Router();
 
 router.post("/new", isAuthenticated, singleUpload, createEvent);
 router.get("/all", getAllEvents);
+router.get("/myevents", isAuthenticated, getMyEvents);
 
 router
   .route("/:id")
   .get(getEventDetails)
-  .put(isAuthenticated, isAdmin, updateEvent)
-  .delete(isAuthenticated, isAdmin, deleteEvent);
+  .put(isAuthenticated, updateEvent)
+  .delete(isAuthenticated, deleteEvent);
 
 export default router;

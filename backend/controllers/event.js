@@ -5,16 +5,8 @@ import cloudinary from "cloudinary";
 import { getDataUri } from "../utils/features.js";
 
 export const createEvent = asyncError(async (req, res, next) => {
-  const {
-    name,
-    startDate,
-    endDate,
-    location,
-    category,
-    description,
-    organizer,
-    price,
-  } = req.body;
+  const { name, startDate, endDate, location, category, description, price } =
+    req.body;
 
   if (!req.file) return next(new ErrorHandler("Please add image", 400));
 
@@ -34,7 +26,7 @@ export const createEvent = asyncError(async (req, res, next) => {
     location,
     category,
     description,
-    organizer,
+    organizer: req.user._id,
     price,
     images: [image],
   });
@@ -46,8 +38,6 @@ export const createEvent = asyncError(async (req, res, next) => {
 });
 
 export const getAllEvents = asyncError(async (req, res, next) => {
-  const { keyword, category } = req.query;
-
   const events = await Event.find({});
 
   res.status(200).json({
@@ -67,20 +57,30 @@ export const getEventDetails = asyncError(async (req, res, next) => {
   });
 });
 
+export const getMyEvents = asyncError(async (req, res, next) => {
+  const events = await Event.find({ organizer: req.user._id });
+
+  res.status(200).json({
+    success: true,
+    events,
+  });
+});
+
 export const updateEvent = asyncError(async (req, res, next) => {
-  const {
-    name,
-    startDate,
-    endDate,
-    location,
-    category,
-    description,
-    organizer,
-    price,
-  } = req.body;
+  const { name, startDate, endDate, location, category, description, price } =
+    req.body;
 
   const event = await Event.findById(req.params.id);
   if (!event) return next(new ErrorHandler("Event not found", 404));
+
+  if (
+    event.organizer.toString() !== req.user._id.toString() &&
+    req.user.role !== "admin"
+  ) {
+    return next(
+      new ErrorHandler("You are not authorized to update this event", 403)
+    );
+  }
 
   if (name) event.name = name;
   if (startDate) event.startDate = startDate;
@@ -88,7 +88,6 @@ export const updateEvent = asyncError(async (req, res, next) => {
   if (location) event.location = location;
   if (category) event.category = category;
   if (description) event.description = description;
-  if (organizer) event.organizer = organizer;
   if (price) event.price = price;
 
   await event.save();
@@ -102,6 +101,15 @@ export const updateEvent = asyncError(async (req, res, next) => {
 export const deleteEvent = asyncError(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
   if (!event) return next(new ErrorHandler("Event not found", 404));
+
+  if (
+    event.organizer.toString() !== req.user._id.toString() &&
+    req.user.role !== "admin"
+  ) {
+    return next(
+      new ErrorHandler("You are not authorized to delete this event", 403)
+    );
+  }
 
   for (let index = 0; index < event.images.length; index++) {
     await cloudinary.v2.uploader.destroy(event.images[index].public_id);
