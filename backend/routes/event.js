@@ -5,7 +5,7 @@ import {
   createEvent,
   getAllEvents,
   getEventDetails,
-  updateEvent,
+  updateEvent,deleteEvent,
 } from "../controllers/event.js";
 const router = express.Router();
 
@@ -15,6 +15,7 @@ router.get("/all", getAllEvents);
 router
   .route("/:id")
   .get(getEventDetails)
-  .put(isAuthenticated, isAdmin, updateEvent);
+  .put(isAuthenticated, isAdmin, updateEvent)
+  .delete(isAuthenticated, isAdmin, deleteEvent);
 
 export default router;
