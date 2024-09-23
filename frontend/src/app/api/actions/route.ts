@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     const tx = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: sender,
-        toPubkey: new PublicKey("CRtPaRBqT274CaE5X4tFgjccx5XXY5zKYfLPnvitKdJx"),
+        toPubkey: new PublicKey("JC7fd4qSmXmynBt1J8og36z4sfwNwouL1GMFPD5nyCSS"),
         lamports: LAMPORTS_PER_SOL * 0,
       })
     );
